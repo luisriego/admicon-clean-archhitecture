@@ -16,21 +16,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 36, options: ['fixed' => true])]
     private string $id;
 
-    #[ORM\Column(type: "string", length: 80)]
+    #[ORM\Column(type: 'string', length: 80)]
     private ?string $name;
 
-    #[ORM\Column(type: "string", length: 180, unique: true)]
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
     private ?string $email;
 
-    #[ORM\Column(type: "json")]
+    #[ORM\Column(type: 'json')]
     private $roles = [];
 
-    #[ORM\Column(type: "string", length: 255, options: [
-        "comment" => "The hashed password"
+    #[ORM\Column(type: 'string', length: 255, options: [
+        'comment' => 'The hashed password',
     ])]
     private ?string $password;
 
-    #[ORM\Column(type: "smallint")]
+    #[ORM\Column(type: 'smallint')]
     private int $age;
 
     private function __construct(
