@@ -51,11 +51,11 @@ composer-install: ## Installs composer dependencies
 migrations: ## Run migrations for dev/prod environments
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console doctrine:migration:migrate -n
 
-migrations-test: ## Run migrations for test environments
-	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console doctrine:migration:migrate -n --env=test
-
 db-test-creation: ## Create the project databases for test environment
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console doctrine:database:create -n --env=test
+
+migrations-test: ## Run migrations for test environments
+	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console doctrine:migration:migrate -n --env=test
 
 code-style:
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} vendor/bin/php-cs-fixer fix src --rules=@Symfony
