@@ -23,6 +23,6 @@ jobs:
         with:
           time: '10s'
       - name: Create test database
-        run: make db-test-creation
+        run: make db-test-creation && make migrations-test
       - name: Run test
-        run: make migrations-test && make test
+        run: make tests
