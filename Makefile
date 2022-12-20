@@ -51,6 +51,7 @@ migrations: ## Run migrations for dev/prod environments
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console doctrine:migration:migrate -n
 
 migrations-test: ## Run migrations for test environments
+	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console doctrine:database:create -n --env=test
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console doctrine:migration:migrate -n --env=test
 
 code-style:
