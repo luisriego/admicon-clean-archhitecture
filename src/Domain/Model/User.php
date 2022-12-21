@@ -23,7 +23,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $name;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    private ?string $email;
+    private readonly ?string $email;
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
@@ -48,13 +48,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         int $age,
         bool $isActive,
         \DateTimeImmutable $createdOn,
-        \DateTime $updatedOn
     ) {
-        $this->age = $age;
-        $this->password = $password;
-        $this->email = $email;
-        $this->name = $name;
         $this->id = $id;
+        $this->name = $name;
+        $this->email = $email;
+        $this->password = $password;
+        $this->token = $token;
+        $this->age = $age;
+        $this->isActive = $isActive;
+        $this->createdOn = $createdOn;
     }
 
     public static function create($id, $name, $email, $password, $age): self
@@ -67,8 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             \sha1(\uniqid()),
             $age,
             false,
-            new \DateTimeImmutable(),
-            new \DateTime()
+            new \DateTimeImmutable()
         );
     }
 

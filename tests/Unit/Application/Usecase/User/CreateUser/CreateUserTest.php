@@ -50,7 +50,8 @@ class CreateUserTest extends TestCase
                     return $user->getName() === self::VALUES['name']
                         && $user->getEmail() === self::VALUES['email']
                         && $user->getPassword() === self::VALUES['password']
-                        && $user->getAge() === self::VALUES['age'];
+                        && $user->getAge() === self::VALUES['age']
+                        && $user->isActive() === false;
                 })
             );
 
