@@ -3,18 +3,21 @@
 namespace App\Domain\Model;
 
 use App\Adapter\Database\ORM\Doctrine\Repository\DoctrineUserRepository;
+use App\Domain\Trait\IdentifierTrait;
+use App\Domain\Trait\IsActiveTrait;
+use App\Domain\Trait\TimestampableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: DoctrineUserRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    use IdentifierTrait;
+    use TimestampableTrait;
+    use IsActiveTrait;
     public const MIN_AGE = 18;
-
-    #[ORM\Id]
-    #[ORM\Column(type: 'string', length: 36, options: ['fixed' => true])]
-    private string $id;
 
     #[ORM\Column(type: 'string', length: 80)]
     private ?string $name;
@@ -24,6 +27,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
+
+    #[ORM\Column(type: 'string', length: 40, nullable: true)]
+    private ?string $token;
 
     #[ORM\Column(type: 'string', length: 255, options: [
         'comment' => 'The hashed password',
@@ -38,7 +44,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         ?string $name,
         ?string $email,
         ?string $password,
-        int $age
+        ?string $token,
+        int $age,
+        bool $isActive,
+        \DateTimeImmutable $createdOn,
+        \DateTime $updatedOn
     ) {
         $this->age = $age;
         $this->password = $password;
@@ -49,7 +59,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public static function create($id, $name, $email, $password, $age): self
     {
-        return new static($id, $name, $email, $password, $age);
+        return new static(
+            $id,
+            $name,
+            $email,
+            $password,
+            \sha1(\uniqid()),
+            $age,
+            false,
+            new \DateTimeImmutable(),
+            new \DateTime()
+        );
     }
 
     public function getId(): ?string
