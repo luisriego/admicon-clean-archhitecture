@@ -15,5 +15,7 @@ interface UserRepositoryInterface
 
     public function remove(User $user, bool $flush): void;
 
+    public function findOneByIdOrFail(string $id): User;
+
 //    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void;
 }
