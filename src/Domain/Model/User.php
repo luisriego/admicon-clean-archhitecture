@@ -18,6 +18,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     use TimestampableTrait;
     use IsActiveTrait;
     public const MIN_AGE = 18;
+    public const NAME_MIN_LENGTH = 2;
+    public const NAME_MAX_LENGTH = 80;
 
     #[ORM\Column(type: 'string', length: 80)]
     private ?string $name;

@@ -26,7 +26,7 @@ class CreateUser
             $inputDto->age
         );
 
-        $this->repository->save($user);
+        $this->repository->save($user, true);
 
         return new CreateUserOutputDto((string) $user->getId());
     }

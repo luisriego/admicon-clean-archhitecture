@@ -21,10 +21,7 @@ class CreateUserTest extends TestCase
         'age' => 30,
     ];
 
-    /**
-     * @var UserRepositoryInterface|MockObject $userRepository
-     */
-    private UserRepositoryInterface $userRepository;
+    private UserRepositoryInterface|MockObject $userRepository;
     private CreateUser $useCase;
 
     public function setUp(): void

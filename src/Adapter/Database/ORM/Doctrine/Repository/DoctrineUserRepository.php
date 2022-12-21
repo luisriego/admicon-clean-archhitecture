@@ -2,6 +2,7 @@
 
 namespace App\Adapter\Database\ORM\Doctrine\Repository;
 
+use App\Domain\Exception\ResourceNotFoundException;
 use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -64,6 +65,15 @@ class DoctrineUserRepository extends ServiceEntityRepository implements Password
         $user->setPassword($newHashedPassword);
 
         $this->add($user, true);
+    }
+
+    public function findOneByIdOrFail(string $id): User
+    {
+        if (null === $user = $this->find($id)) {
+            throw ResourceNotFoundException::createFromClassAndId(User::class, $id);
+        }
+
+        return $user;
     }
 
 //    /**
