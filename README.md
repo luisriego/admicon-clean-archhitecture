@@ -95,5 +95,7 @@ $subQueryBuilder = $this->getEntityManager()->createQueryBuilder();
         ->innerJoin('p.reservations', 'reservations')
         ->getQuery();
 ```
+rollback
 
+    sf doctrine:migrations:execute --down -n 'DoctrineMigrations\Version20221222185623'
 
