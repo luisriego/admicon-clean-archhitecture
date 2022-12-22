@@ -41,6 +41,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'smallint')]
     private int $age;
 
+    #[ORM\ManyToOne(targetEntity: Condo::class, inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Condo $condo;
+
     private function __construct(
         string $id,
         ?string $name,
@@ -98,6 +102,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAge(int $age): void
     {
         $this->age = $age;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): void
+    {
+        $this->token = $token;
+    }
+
+    public function getCondo(): ?Condo
+    {
+        return $this->condo;
+    }
+
+    public function setCondo(?Condo $condo): void
+    {
+        $this->condo = $condo;
     }
 
     public function getEmail(): ?string

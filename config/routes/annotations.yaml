@@ -7,3 +7,9 @@ user_controllers:
     type: annotation
     prefix: /api/users
     trailing_slash_on_root: false
+
+condo_controllers:
+    resource: ../../src/Adapter/Framework/Http/Controller/Condo/
+    type: annotation
+    prefix: /api/condoss
+    trailing_slash_on_root: false
