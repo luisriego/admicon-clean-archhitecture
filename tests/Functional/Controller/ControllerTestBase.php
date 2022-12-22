@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Functional\Controller;
+namespace App\Tests\Functional\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

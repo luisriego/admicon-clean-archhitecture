@@ -2,28 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Functional\Controller\User;
+namespace App\Tests\Functional\Controller\User;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\BrowserKit\AbstractBrowser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UpdateUserControllerTest extends WebTestCase
+class UpdateUserControllerTest extends UserControllerTestBase
 {
-    private const CREATE_USER_ENDPOINT = '/api/users/create';
-    private const NON_EXISTING_USER_ID = 'e0a1878f-dd52-4eea-959d-96f589a9f234';
-
-    private static ?AbstractBrowser $client = null;
-
-    public function setUp(): void
-    {
-        if (null === self::$client) {
-            self::$client = static::createClient();
-            self::$client->setServerParameter('CONTENT_TYPE', 'application/json');
-        }
-    }
-
     private const ENDPOINT = '/api/users/%s';
 
     /**
@@ -45,37 +30,6 @@ class UpdateUserControllerTest extends WebTestCase
 
         foreach ($keys as $key) {
             self::assertEquals($payload[$key], $responseData[$key]);
-        }
-    }
-
-    private function createUser(): string
-    {
-        $payload = [
-            'name' => 'Peter',
-            'email' => 'peter@api.com',
-            'password' => 'Fake123',
-            'age' => 30,
-        ];
-
-        self::$client->request(Request::METHOD_POST, self::CREATE_USER_ENDPOINT, [], [], [], \json_encode($payload));
-
-        $response = self::$client->getResponse();
-
-        if (Response::HTTP_CREATED !== $response->getStatusCode()) {
-            throw new \RuntimeException('Error creating user');
-        }
-
-        $responseData = $this->getResponseData($response);
-
-        return $responseData['userId'];
-    }
-
-    protected function getResponseData(Response $response): array
-    {
-        try {
-            return \json_decode($response->getContent(), true);
-        } catch (\Exception $e) {
-            throw $e;
         }
     }
 

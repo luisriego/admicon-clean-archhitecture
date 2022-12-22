@@ -2,20 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Tests\Functional\Controller\User;
+namespace App\Tests\Functional\Controller\User;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\Functional\Controller\ControllerTestBase;
+use App\Tests\Functional\Controller\ControllerTestBase;
 
 class UserControllerTestBase extends ControllerTestBase
 {
-    protected const CREATE_USER_ENDPOINT = '/api/users';
-    protected const NON_EXISTING_USER_ID = 'e0a1878f-dd52-4eea-959d-96f589a9f234';
+    private const CREATE_USER_ENDPOINT = '/api/users/create';
+    private const NON_EXISTING_USER_ID = 'e0a1878f-dd52-4eea-959d-96f589a9f234';
 
-    protected function createReservation(): string
+    protected function createUser(): string
     {
-        $payload = [];
+        $payload = [
+            'name' => 'Peter',
+            'email' => 'peter@api.com',
+            'password' => 'Fake123',
+            'age' => 30,
+        ];
 
         self::$client->request(Request::METHOD_POST, self::CREATE_USER_ENDPOINT, [], [], [], \json_encode($payload));
 

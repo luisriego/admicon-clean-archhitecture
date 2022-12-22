@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Functional\Controller\User;
+namespace App\Tests\Functional\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\AbstractBrowser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\Functional\Controller\User\UserControllerTestBase;
+use App\Tests\Functional\Controller\User\UserControllerTestBase;
 
 class HealthCheckControllerTest extends WebTestCase
 {
