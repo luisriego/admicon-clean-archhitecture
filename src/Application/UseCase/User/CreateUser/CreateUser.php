@@ -17,8 +17,7 @@ class CreateUser
     public function __construct(
         private readonly UserRepositoryInterface $repository,
         private readonly PasswordHasherInterface $passwordHasher
-    )
-    {
+    ) {
     }
 
     public function handle(CreateUserInputDto $inputDto): CreateUserOutputDto
