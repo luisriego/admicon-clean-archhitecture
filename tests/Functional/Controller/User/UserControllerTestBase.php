@@ -11,6 +11,7 @@ use Tests\Functional\Controller\ControllerTestBase;
 class UserControllerTestBase extends ControllerTestBase
 {
     protected const CREATE_USER_ENDPOINT = '/api/users';
+    protected const NON_EXISTING_USER_ID = 'e0a1878f-dd52-4eea-959d-96f589a9f234';
 
     protected function createReservation(): string
     {
