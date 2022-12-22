@@ -19,10 +19,10 @@ class UpdateUserInputDto
 
     public function __construct(
         public readonly ?string $id,
-        public readonly string $name,
-        public readonly string $email,
-        public readonly string $password,
-        public readonly int $age,
+        public readonly ?string $name,
+        public readonly ?string $email,
+        public readonly ?string $password,
+        public readonly ?int $age,
         public readonly array $paramsToUpdate
     ) {
         $this->assertNotNull(self::ARGS, [$this->id]);

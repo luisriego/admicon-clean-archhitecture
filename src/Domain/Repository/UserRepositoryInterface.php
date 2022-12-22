@@ -17,5 +17,9 @@ interface UserRepositoryInterface
 
     public function findOneByIdOrFail(string $id): User;
 
+    public function findOneByEmail(string $id): ?User;
+
+    public function findOneByEmailOrFail(string $id): User;
+
 //    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void;
 }

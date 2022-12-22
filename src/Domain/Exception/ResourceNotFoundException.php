@@ -10,4 +10,9 @@ class ResourceNotFoundException extends \DomainException
     {
         return new static(\sprintf('Resource of type [%s] with ID [%s] not found', $class, $id));
     }
+
+    public static function createFromClassAndEmail(string $class, string $email): self
+    {
+        return new static(\sprintf('Resource of type [%s] with Email [%s] not found', $class, $email));
+    }
 }

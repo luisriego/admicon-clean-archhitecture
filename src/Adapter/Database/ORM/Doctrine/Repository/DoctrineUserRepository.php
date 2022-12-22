@@ -76,6 +76,20 @@ class DoctrineUserRepository extends ServiceEntityRepository implements Password
         return $user;
     }
 
+    public function findOneByEmail(string $email): ?User
+    {
+        return $this->findOneBy(['email' => $email]);
+    }
+
+    public function findOneByEmailOrFail(string $email): User
+    {
+        if (null === $user = $this->find($email)) {
+            throw ResourceNotFoundException::createFromClassAndEmail(User::class, $email);
+        }
+
+        return $user;
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
