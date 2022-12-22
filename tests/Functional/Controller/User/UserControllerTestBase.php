@@ -10,8 +10,8 @@ use App\Tests\Functional\Controller\ControllerTestBase;
 
 class UserControllerTestBase extends ControllerTestBase
 {
-    private const CREATE_USER_ENDPOINT = '/api/users/create';
-    private const NON_EXISTING_USER_ID = 'e0a1878f-dd52-4eea-959d-96f589a9f234';
+    protected const CREATE_USER_ENDPOINT = '/api/users/create';
+    protected const NON_EXISTING_USER_ID = 'e0a1878f-dd52-4eea-959d-96f589a9f234';
 
     protected function createUser(): string
     {
