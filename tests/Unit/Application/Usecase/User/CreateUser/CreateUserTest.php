@@ -9,10 +9,11 @@ use App\Application\UseCase\User\CreateUser\Dto\CreateUserInputDto;
 use App\Application\UseCase\User\CreateUser\Dto\CreateUserOutputDto;
 use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
+use App\Domain\Security\PasswordHasherInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class CreateUserTest extends TestCase
+final class CreateUserTest extends TestCase
 {
     private const VALUES = [
         'name' => 'Peter',
@@ -21,16 +22,18 @@ class CreateUserTest extends TestCase
         'age' => 30,
     ];
 
-    private UserRepositoryInterface|MockObject $userRepository;
-    private CreateUser $useCase;
+    private readonly UserRepositoryInterface|MockObject $userRepository;
+    private readonly PasswordHasherInterface $passwordHasher;
+    private readonly CreateUser $useCase;
 
     public function setUp(): void
     {
         $this->userRepository = $this->createMock(UserRepositoryInterface::class);
-        $this->useCase = new CreateUser($this->userRepository);
+        $this->passwordHasher = $this->createMock(PasswordHasherInterface::class);
+        $this->useCase = new CreateUser($this->userRepository, $this->passwordHasher);
     }
 
-    public function testCreateCustomer(): void
+    public function testCreateUser(): void
     {
         $dto = CreateUserInputDto::create(
             self::VALUES['name'],
@@ -39,6 +42,24 @@ class CreateUserTest extends TestCase
             self::VALUES['age'],
         );
 
+        $name = self::VALUES['name'];
+        $email = self::VALUES['email'];
+        $password = self::VALUES['password'];
+
+        $this->passwordHasher
+            ->expects($this->once())
+            ->method('hashPasswordForUser')
+            ->with(
+                $this->callback(function (User $user) use ($name, $email): bool {
+                    return $user->getName() === $name
+                        && $user->getEmail() === $email;
+                }),
+                $this->callback(function (string $plainPassword) use ($password): bool {
+                    return $plainPassword === $password;
+                })
+            )
+            ->willReturn('super-encrypted-password');
+
         $this->userRepository
             ->expects($this->once())
             ->method('save')
@@ -46,7 +67,7 @@ class CreateUserTest extends TestCase
                 $this->callback(function (User $user): bool {
                     return $user->getName() === self::VALUES['name']
                         && $user->getEmail() === self::VALUES['email']
-                        && $user->getPassword() === self::VALUES['password']
+                        && $user->getPassword() === 'super-encrypted-password'
                         && $user->getAge() === self::VALUES['age']
                         && $user->isActive() === false;
                 })

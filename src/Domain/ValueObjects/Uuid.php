@@ -6,11 +6,8 @@ namespace App\Domain\ValueObjects;
 
 class Uuid implements \Stringable
 {
-    protected string $value;
-
-    public function __construct(string $value)
+    public function __construct(protected readonly string $value)
     {
-        $this->value = $value;
         $this->ensureIsValidUuid($value);
     }
 
