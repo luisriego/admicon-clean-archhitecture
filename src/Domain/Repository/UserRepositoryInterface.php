@@ -17,7 +17,7 @@ interface UserRepositoryInterface
 
     public function findOneByIdOrFail(string $id): User;
 
-    public function findOneByEmail(string $id): ?User;
+    public function findOneByEmail(string $email): ?User;
 
     public function findOneByEmailOrFail(string $id): User;
 

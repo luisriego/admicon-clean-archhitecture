@@ -22,6 +22,7 @@ class Condo
     use IsActiveTrait;
 
     public const TAXPAYER_MIN_LENGTH = 14; // Brazilian Taxpayer Identification Number (CNPJ);
+    public const TAXPAYER_MAX_LENGTH = 14;
     public const NAME_MIN_LENGTH = 5;
     public const NAME_MAX_LENGTH = 100;
 
@@ -32,7 +33,7 @@ class Condo
     private ?string $fantasyName = '';
 
     #[ORM\OneToMany(mappedBy: 'condo', targetEntity: User::class, orphanRemoval: true)]
-    private ArrayCollection $users;
+    private Collection $users;
 
     private function __construct(
         ?string $taxpayer,

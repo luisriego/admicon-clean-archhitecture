@@ -7,6 +7,33 @@ security:
     providers:
         users_in_memory: { memory: null }
     firewalls:
+#        register:
+#            pattern: ^/api/v1/users/create
+#            methods: [ POST ]
+#            security: false
+#        activate:
+#            pattern: ^/api/v1/users/activate
+#            methods: [ PUT ]
+#            security: false
+#        docs:
+#            pattern: ^/api/v1/docs
+#            methods: [ GET ]
+#            security: false
+#        login:
+#            pattern: ^/api/v1/users/login
+#            stateless: true
+#            provider: user_provider
+#            json_login:
+#                check_path: /api/v1/users/login_check
+#                success_handler: lexik_jwt_authentication.handler.authentication_success
+#                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+#                require_previous_session: false
+#        api:
+#            pattern: ^/api/v1
+#            stateless: true
+#            guard:
+#                authenticators:
+#                    - lexik_jwt_authentication.jwt_token_authenticator
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
