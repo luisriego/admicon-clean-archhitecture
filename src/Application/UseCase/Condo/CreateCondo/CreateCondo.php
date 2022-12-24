@@ -10,7 +10,6 @@ use App\Domain\Exception\Condo\CondoAlreadyExistsException;
 use App\Domain\Model\Condo;
 use App\Domain\Model\User;
 use App\Domain\Repository\CondoRepositoryInterface;
-use App\Domain\Security\SecurityInterface;
 use Symfony\Component\Security\Core\Security;
 
 class CreateCondo
