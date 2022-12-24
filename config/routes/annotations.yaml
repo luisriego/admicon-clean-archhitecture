@@ -11,5 +11,5 @@ user_controllers:
 condo_controllers:
     resource: ../../src/Adapter/Framework/Http/Controller/Condo/
     type: annotation
-    prefix: /api/condoss
+    prefix: /api/condos
     trailing_slash_on_root: false

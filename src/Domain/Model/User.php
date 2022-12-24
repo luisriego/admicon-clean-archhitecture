@@ -42,8 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private int $age;
 
     #[ORM\ManyToOne(targetEntity: Condo::class, inversedBy: 'users')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Condo $condo;
+    private ?Condo $condo = null;
 
     private function __construct(
         string $id,

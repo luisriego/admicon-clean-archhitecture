@@ -10,11 +10,11 @@ interface CondoRepositoryInterface
 {
     public function add(Condo $condo, bool $flush): void;
 
-    public function save(Condo $condo): void;
+    public function save(Condo $condo, bool $flush): void;
 
     public function remove(Condo $condo, bool $flush): void;
 
     public function findOneByIdOrFail(string $id): Condo;
 
-    public function findOneByTaxpayer(string $id): ?Condo;
+    public function findOneByTaxpayer(string $taxpayer): ?Condo;
 }

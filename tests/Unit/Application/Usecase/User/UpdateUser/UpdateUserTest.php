@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Usecase\User\UpdateUser;
+namespace App\Tests\Unit\Application\Usecase\User\UpdateUser;
 
 use App\Application\UseCase\User\UpdateUSer\Dto\UpdateUserInputDto;
 use App\Application\UseCase\User\UpdateUSer\Dto\UpdateUserOutputDto;

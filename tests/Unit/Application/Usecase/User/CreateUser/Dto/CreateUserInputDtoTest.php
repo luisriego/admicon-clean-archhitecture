@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Usecase\User\CreateUser\Dto;
+namespace App\Tests\Unit\Application\Usecase\User\CreateUser\Dto;
 
 use App\Application\UseCase\User\CreateUser\Dto\CreateUserInputDto;
 use App\Domain\Exception\InvalidArgumentException;
