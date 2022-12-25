@@ -62,6 +62,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->age = $age;
         $this->isActive = $isActive;
         $this->createdOn = $createdOn;
+        $this->markAsUpdated();
     }
 
     public static function create($id, $name, $email, $password, $age): self
