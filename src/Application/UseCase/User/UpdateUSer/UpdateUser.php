@@ -23,6 +23,7 @@ class UpdateUser
         foreach ($dto->paramsToUpdate as $param) {
             $user->{\sprintf('%s%s', self::SETTER_PREFIX, \ucfirst($param))}($dto->{$param});
         }
+        $user->markAsUpdated();
 
         $this->userRepository->save($user, true);
 
