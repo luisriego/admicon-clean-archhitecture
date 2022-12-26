@@ -24,10 +24,5 @@ class JWTCreatedListener
         $payload['id'] = $user->getId();
 
         $event->setData($payload);
-//
-//        $header        = $event->getHeader();
-//        $header['cty'] = 'JWT';
-//
-//        $event->setHeader($header);
     }
 }
