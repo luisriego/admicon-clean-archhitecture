@@ -24,9 +24,9 @@ class CreateUserControllerTest extends UserControllerTestBase
             'age' => 30,
         ];
 
-        self::$client->request(Request::METHOD_POST, self::ENDPOINT,[], [], [], \json_encode($payload));
+        self::$admin->request(Request::METHOD_POST, self::ENDPOINT,[], [], [], \json_encode($payload));
 
-        $response = self::$client->getResponse();
+        $response = self::$admin->getResponse();
         $responseData = $this->getResponseData($response);
 
         self::assertEquals(Response::HTTP_CREATED, $response->getStatusCode());

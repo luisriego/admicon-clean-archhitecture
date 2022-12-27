@@ -20,6 +20,12 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 100 }
 
+    App\Adapter\Framework\Security\EventListener\JWTCreatedListener:
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
+
     App\Adapter\Database\ORM\Doctrine\EventSubscriber\UserEventSubscriber:
         tags:
             - { name: doctrine.event_listener, event: preUpdate, method: preUpdate }
+
+

@@ -1,20 +1,20 @@
 version: '3.5'
 
 services:
-  admicon-clean-arch-web:
-    container_name: admicon-clean-arch-web
-    build:
-      context: ./docker/nginx
-      args:
-        UID: $U_ID
-    ports:
-      - 1000:80
-    volumes:
-      - ./public:/appdata/www/public
-    depends_on:
-      - admicon-clean-arch-be
-    networks:
-      - admicon-clean-arch-network
+#  admicon-clean-arch-web:
+#    container_name: admicon-clean-arch-web
+#    build:
+#      context: ./docker/nginx
+#      args:
+#        UID: $U_ID
+#    ports:
+#      - 1000:80
+#    volumes:
+#      - ./public:/appdata/www/public
+#    depends_on:
+#      - admicon-clean-arch-be
+#    networks:
+#      - admicon-clean-arch-network
 
   admicon-clean-arch-be:
     container_name: admicon-clean-arch-be
@@ -23,7 +23,7 @@ services:
       args:
         UID: $U_ID
     volumes:
-      - ./:/appdata/www
+      - ./:/var/www/html
     ###> XDEBUG 3 ###
     # Use your client IP here
     # Linux: run "ip a | grep docker0"
@@ -31,27 +31,28 @@ services:
     environment:
       XDEBUG_CLIENT_HOST: 172.17.0.1
       XDEBUG_CLIENT_PORT: 9003
-      PHP_IDE_CONFIG: serverName=docker-dev-env-for-symfony
+      PHP_IDE_CONFIG: serverName=localhost
     ports:
-      - '1100:8000'
+      - '1000:80'
     networks:
       - admicon-clean-arch-network
     depends_on:
-      - admicon-clean-arch-postgres
-      
-  admicon-clean-arch-postgres:
-    container_name: admicon-clean-arch-postgres
-    image: postgres:14-alpine
-    ports:
-      - '5432:5432'
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: passwd
-      POSTGRES_DB: postgres_symfony
-    volumes:
-      - admicon-clean-arch-pgsql-data:/var/lib/postgresql/data
-    networks:
-      - admicon-clean-arch-network
+      - admicon-clean-arch-mysql
+#      - admicon-clean-arch-postgres
+#
+#  admicon-clean-arch-postgres:
+#    container_name: admicon-clean-arch-postgres
+#    image: postgres:14-alpine
+#    ports:
+#      - '5432:5432'
+#    environment:
+#      POSTGRES_USER: user
+#      POSTGRES_PASSWORD: passwd
+#      POSTGRES_DB: postgres_symfony
+#    volumes:
+#      - admicon-clean-arch-pgsql-data:/var/lib/postgresql/data
+#    networks:
+#      - admicon-clean-arch-network
 
   admicon-clean-arch-mysql:
     container_name: admicon-clean-arch-mysql
@@ -67,14 +68,14 @@ services:
       - admicon-clean-arch-network
     command: [ 'mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci' ]
 
-  admicon-clean-arch-rabbit:
-    container_name: admicon-clean-arch-rabbitmq
-    image: rabbitmq:3-management-alpine
-    ports:
-      - '5672:5672'
-      - '15672:15672'
-    networks:
-      - admicon-clean-arch-network
+#  admicon-clean-arch-rabbit:
+#    container_name: admicon-clean-arch-rabbitmq
+#    image: rabbitmq:3-management-alpine
+#    ports:
+#      - '5672:5672'
+#      - '15672:15672'
+#    networks:
+#      - admicon-clean-arch-network
 
 volumes:
   admicon-clean-arch-pgsql-data:
