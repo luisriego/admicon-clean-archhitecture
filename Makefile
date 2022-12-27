@@ -30,7 +30,6 @@ build: ## Rebuilds all the containers
 
 prepare: ## Runs backend commands
 	$(MAKE) composer-install
-	$(MAKE) generate-ssh-keys
 	$(MAKE) migrations
 	$(MAKE) db-test-creation
 	$(MAKE) migrations-test
