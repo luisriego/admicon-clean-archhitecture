@@ -10,18 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Tests\Functional\Controller\User\UserControllerTestBase;
 
-class HealthCheckControllerTest extends WebTestCase
+class HealthCheckControllerTest extends ControllerTestBase
 {
-    protected static ?AbstractBrowser $client = null;
     private const ENDPOINT = '/api/users/health-check';
-
-    public function setUp(): void
-    {
-        if (null === self::$client) {
-            self::$client = static::createClient();
-            self::$client->setServerParameter('CONTENT_TYPE', 'application/json');
-        }
-    }
 
     public function testUserHealthCheck(): void
     {

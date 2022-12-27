@@ -11,10 +11,10 @@ security:
                 property: email
 #        users_in_memory: { memory: null }
     firewalls:
-#        register:
-#            pattern: ^/api/v1/users/create
-#            methods: [ POST ]
-#            security: false
+        register:
+            pattern: ^/api/users/create
+            methods: [ POST ]
+            security: false
 #        activate:
 #            pattern: ^/api/v1/users/activate
 #            methods: [ PUT ]
@@ -23,6 +23,10 @@ security:
 #            pattern: ^/api/v1/docs
 #            methods: [ GET ]
 #            security: false
+        user-check:
+            pattern: ^/api/users/health-check
+            methods: [ GET ]
+            security: false
         login:
             pattern: ^/api/login
             stateless: true
