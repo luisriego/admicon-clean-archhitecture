@@ -1,0 +1,137 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: Admicon
+            description: This is an awesome app for Condo administration!
+            version: 1.0.0
+        components:
+            securitySchemes:
+                Bearer:
+                    type: http
+                    scheme: bearer
+                    bearerFormat: JWT
+        paths:
+            ### USERS PATHS ###
+            /api/users/health-check:
+                get:
+                    tags:
+                        - Users
+                    responses:
+                        200:
+                            description: Module User running
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            message: { type: string, example: Module User up and running! }
+            /api/users/create:
+                post:
+                    tags:
+                        - Users
+                    requestBody:
+                        content:
+                            application/json:
+                                schema:
+                                    type: object
+                                    properties:
+                                        name: { type: string, example: Luis }
+                                        email: { type: string, example: luis@api.com }
+                                        password: { type: string, example: FakePass123 }
+                                        age: { type: number, example: 54 }
+                    responses:
+                        201:
+                            description: User created
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            userId: { type: string, example: 2d995fa5-7da7-4f49-94ad-b6bed527dca9 }
+            /api/users/{id}:
+                get:
+                    tags:
+                        - Users
+                    responses:
+                        200:
+                            description: Users data
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            id: { type: string, example: 2d995fa5-7da7-4f49-94ad-b6bed527dca9 }
+                                            name: { type: string, example: Luis }
+                                            email: { type: string, example: luis@api.com }
+                                            password: { type: string, example: FakePass123 }
+                                            age: { type: number, example: 54 }
+                patch:
+                    tags:
+                        - Users
+                    requestBody:
+                        content:
+                            application/json:
+                                schema:
+                                    type: object
+                                    properties:
+                                        name: { type: string, example: Luis }
+                                        email: { type: string, example: luis@api.com }
+                                        password: { type: string, example: FakePass123 }
+                                        age: { type: number, example: 54 }
+                    responses:
+                        200:
+                            description: Users data
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            id: { type: string, example: 2d995fa5-7da7-4f49-94ad-b6bed527dca9 }
+                                            name: { type: string, example: Luis }
+                                            email: { type: string, example: luis@api.com }
+                                            address: { type: string, example: Fake Pass123 }
+                                            age: { type: number, example: 54}
+                delete:
+                    tags:
+                        - Users
+                    responses:
+                        204:
+                            description: Users deleted
+            ### CONDO PATHS ###
+            /api/condos/health-check:
+                get:
+                    tags:
+                        - Condos
+                    responses:
+                        200:
+                            description: Module User running
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            message: { type: string, example: Module Condo up and running! }
+            /api/condos/create:
+                post:
+                    tags:
+                        - Condos
+                    requestBody:
+                        content:
+                            application/json:
+                                schema:
+                                    type: object
+                                    properties:
+                                        taxpayer: { type: string, example: 12345678901 }
+                                        fantasyName: { type: string, example: Condomínio do Edifício Fake }
+                    responses:
+                        201:
+                            description: Condo created
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            condoId: { type: string, example: 2d995fa5-7da7-4f49-94ad-b6bed527dca9 }
+    areas: # to filter documented areas
+        path_patterns:
+            - ^/api(?!/doc$) # Accepts routes under /api except /api/doc

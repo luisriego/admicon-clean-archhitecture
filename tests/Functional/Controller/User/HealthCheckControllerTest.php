@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional\Controller;
+namespace App\Tests\Functional\Controller\User;
 
+use App\Tests\Functional\Controller\ControllerTestBase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\AbstractBrowser;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,4 @@ class HealthCheckControllerTest extends ControllerTestBase
         self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
         self::assertEquals('Module User up and running!', $responseData['message']);
     }
-}
-{
-
 }

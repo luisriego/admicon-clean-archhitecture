@@ -39,6 +39,7 @@ class UserControllerTestBase extends WebTestCase
 
         self::$admin->setServerParameters([
             'CONTENT_TYPE' => 'application/json',
+            'HTTP_ACCEPT' => 'application/json',
             'HTTP_Authorization' => \sprintf('Bearer %s', $jwt)
         ]);
     }

@@ -19,12 +19,16 @@ security:
 #            pattern: ^/api/v1/users/activate
 #            methods: [ PUT ]
 #            security: false
-#        docs:
-#            pattern: ^/api/v1/docs
-#            methods: [ GET ]
-#            security: false
+        docs:
+            pattern: ^/api/doc
+            methods: [ GET ]
+            security: false
         user-check:
             pattern: ^/api/users/health-check
+            methods: [ GET ]
+            security: false
+        condo-check:
+            pattern: ^/api/condos/health-check
             methods: [ GET ]
             security: false
         login:
