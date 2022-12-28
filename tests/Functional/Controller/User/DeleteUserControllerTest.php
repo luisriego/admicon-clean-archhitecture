@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
-class DeleteUserControllerTest extends ExperimentalControllerTestBase
+class DeleteUserControllerTest extends UserControllerTestBase
 {
     private const ENDPOINT = '/api/users/%s';
 
@@ -21,26 +21,21 @@ class DeleteUserControllerTest extends ExperimentalControllerTestBase
     {
         $userId = $this->createUser();
 
-//        self::$authenticatedClient->setServerParameters([
-//            'CONTENT_TYPE' => 'application/json',
-//            'HTTP_Authorization' => \sprintf('Bearer %s', self::VALID_JWT)
-//        ]);
+        self::$admin->request(Request::METHOD_DELETE, \sprintf(self::ENDPOINT, $userId));
 
-        self::$authenticatedClient->request(Request::METHOD_DELETE, \sprintf(self::ENDPOINT, $userId));
+        $response = self::$admin->getResponse();
 
-        $response = self::$authenticatedClient->getResponse();
-
-//        self::assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
-        self::assertEquals(Response::HTTP_NO_CONTENT, $response->getStatusCode());
+        self::assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+//        self::assertEquals(Response::HTTP_NO_CONTENT, $response->getStatusCode());
     }
 
-//    public function testDeleteNonExistingUser(): void
-//    {
-//        self::$authenticatedClient->request(Request::METHOD_DELETE, \sprintf(self::ENDPOINT, self::NON_EXISTING_USER_ID));
-//
-//        $response = self::$authenticatedClient->getResponse();
-//
-////        self::assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+    public function testDeleteNonExistingUser(): void
+    {
+        self::$admin->request(Request::METHOD_DELETE, \sprintf(self::ENDPOINT, self::NON_EXISTING_USER_ID));
+
+        $response = self::$admin->getResponse();
+
+        self::assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
 //        self::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
-//    }
+    }
 }
