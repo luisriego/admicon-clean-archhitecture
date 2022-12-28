@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\User;
 
-use App\Domain\Repository\UserRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -14,21 +13,18 @@ class UpdateUserControllerTest extends UserControllerTestBase
 
     /**
      * @dataProvider updateUserDataProvider
-     * @throws \Exception
      */
     public function testUpdateUser(array $payload): void
     {
         // create a user
         $userId = $this->createUser();
-
         // update a user
         self::$admin->request(Request::METHOD_PATCH, \sprintf(self::ENDPOINT, $userId), [], [], [], \json_encode($payload));
         // checks
         $response = self::$admin->getResponse();
         $responseData = $this->getResponseData($response);
 
-        self::assertEquals(true, true);
-
+        self::assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
 //        self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
 
 //        $keys = \array_keys($payload);
