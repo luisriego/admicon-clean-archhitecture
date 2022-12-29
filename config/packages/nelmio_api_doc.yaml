@@ -25,7 +25,7 @@ nelmio_api_doc:
                                         type: object
                                         properties:
                                             message: { type: string, example: Module User up and running! }
-            /api/users/create:
+            /api/users/register:
                 post:
                     tags:
                         - Users
