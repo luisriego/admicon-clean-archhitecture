@@ -19,12 +19,19 @@ class UserControllerTestBase extends WebTestCase
 {
     protected const CREATE_USER_ENDPOINT = '/api/users/create';
     protected const NON_EXISTING_USER_ID = 'e0a1878f-dd52-4eea-959d-96f589a9f234';
-    protected const VALID_JWT = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2NzIwNzEzMjcsImV4cCI6MTY3MzM2NzMyNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoic2FudGlAYXBpLmNvbSIsImlkIjoiODc2MWFiZmQtZDU2My00YzU0LWI3YzYtNTg3MjBkMGY1M2QzIn0.TacxrjVHRaBmfpqrmoUYPbjmr3xR0ltV5H23gqQcsbIzP6nmKu0yJ8jwQuRbJbDOpFKzPVqm2qGg-GskKYVLi-M1XkAao9W30fw0PADZVkcMjZv1ooIOXRsuuuHxAeTsiZs40G1GhT_T1eLjJHfc0V1SDp6ymmsBJJQYn-SQturCYxfBRXtZ55qnJrZOzvoy8ZJL8ldnBlJGO378spevf5gxeGGj9cabIyTQmQKZ3s4cX_magIzxVJD06tttxIUxDs5afMGB8wXqJZERG_MCcUdeDfwZM1voFO46bcdD_eBzywRyr8NOgjVA6ulYOz4LXUNSdCSRa1r5kixVFIQJGA';
+    protected const VALID_JWT = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2NzIyNDgxODksImV4cCI6MTY3MzU0NDE4OSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiYWRtaW5AYXBpLmNvbSIsImlkIjoiYmRhY2ExZDQtYjUyMC00ZGRlLWI3NWEtMDQ1NTlkYzgxNTMwIn0.NbCfY34xBLsZ5VlHPApxvoGY30-WBiucIzcELaZ7vfx8CsDa-huGlftrnloALQ7Nzuikyf4dlWvqtUydaayvkY8NVuIVIOZDIP8IBARPE9ePuXTLReSvFco2NA8zro-fXwWO1nHaMyRIns9qBOroeE3PXsVkbYqLgtowoXPrgifhdhSWID-G57bTyKFS30Md7D6n5RieItIIWpTsvJu_tutlxmFQdecHS4RVNon7p9PlfP-30p-BJyJX4C6_9HIl--u8YMHN0SKN30Evupy881bS4Q90sI9eJwaQxenS_aRs90gNOn_51BOz3lOjJZNoA7TbzxVSeOkPDdplxySHlw';
 
     protected static ?AbstractBrowser $admin = null;
 
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    protected $entityManager;
+
     public function setUp(): void
     {
+        parent::setUp();
+
         if (null === self::$admin) {
             self::$admin = static::createClient();
         }

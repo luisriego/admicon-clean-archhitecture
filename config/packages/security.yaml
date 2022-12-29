@@ -15,10 +15,10 @@ security:
             pattern: ^/api/users/create
             methods: [ POST ]
             security: false
-#        activate:
-#            pattern: ^/api/v1/users/activate
-#            methods: [ PUT ]
-#            security: false
+        activate:
+            pattern: ^/api/users/activate
+            methods: [ PUT ]
+            security: false
         docs:
             pattern: ^/api/doc
             methods: [ GET ]

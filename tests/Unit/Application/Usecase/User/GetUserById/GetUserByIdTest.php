@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Usecase\User\GetUserById;
+namespace App\Tests\Unit\Application\Usecase\User\GetUserById;
 
 use App\Application\UseCase\User\GetUserById\Dto\GetUserByIdInputDto;
 use App\Application\UseCase\User\GetUserById\Dto\GetUserByIdOutputDto;
