@@ -12,7 +12,7 @@ class CondoControllerTestBase extends ControllerTestBase
 {
     protected const CREATE_CONDO_ENDPOINT = '/api/condos/create';
     protected const NON_EXISTING_CONDO_ID = 'e0a1878f-dd52-4eea-959d-96f589a9f234';
-    protected const CREATE_USER_ENDPOINT = '/api/users/create';
+    protected const CREATE_USER_ENDPOINT = '/api/users/register';
 
     protected function createCondo(): string
     {

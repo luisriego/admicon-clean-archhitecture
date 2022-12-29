@@ -12,7 +12,7 @@ security:
 #        users_in_memory: { memory: null }
     firewalls:
         register:
-            pattern: ^/api/users/create
+            pattern: ^/api/users/register
             methods: [ POST ]
             security: false
         activate:
