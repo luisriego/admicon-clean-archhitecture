@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CreateUserControllerTest extends UserControllerTestBase
 {
-    private const ENDPOINT = '/api/users/create';
+    private const ENDPOINT = '/api/users/register';
 
     /**
      * @throws \Exception
