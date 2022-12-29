@@ -23,6 +23,11 @@ class UserControllerTestBase extends WebTestCase
 
     protected static ?AbstractBrowser $admin = null;
 
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    protected $entityManager;
+
     public function setUp(): void
     {
         parent::setUp();

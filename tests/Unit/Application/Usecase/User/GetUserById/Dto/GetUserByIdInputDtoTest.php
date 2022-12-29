@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Usecase\User\GetUserById\Dto;
+namespace App\Tests\Unit\Application\Usecase\User\GetUserById\Dto;
 
 use App\Application\UseCase\User\GetUserById\Dto\GetUserByIdInputDto;
 use App\Domain\Exception\InvalidArgumentException;
