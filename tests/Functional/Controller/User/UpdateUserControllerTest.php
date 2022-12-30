@@ -26,7 +26,7 @@ class UpdateUserControllerTest extends UserControllerTestBase
 
         self::assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
 //        self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
-
+//
 //        $keys = \array_keys($payload);
 //
 //        foreach ($keys as $key) {

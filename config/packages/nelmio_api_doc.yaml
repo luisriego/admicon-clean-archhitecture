@@ -196,12 +196,12 @@ nelmio_api_doc:
                                             id: { type: string, example: 2d995fa5-7da7-4f49-94ad-b6bed527dca9 }
                                             taxpayer: { type: string, example: 12345678901 }
                                             fantasyName: { type: string, example: Condomínio do Edifício Fake }
-#                delete:
-#                    tags:
-#                        - Condos
-#                    responses:
-#                        204:
-#                            description: Condos deleted
+                delete:
+                    tags:
+                        - Condos
+                    responses:
+                        204:
+                            description: Condos deleted
     areas: # to filter documented areas
         path_patterns:
             - ^/api(?!/doc$) # Accepts routes under /api except /api/doc
