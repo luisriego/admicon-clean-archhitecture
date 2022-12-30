@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Usecase\User\DeleteUser;
+namespace App\Tests\Unit\Application\Usecase\User\DeleteUser;
 
 use App\Application\UseCase\User\DeleteUser\DeleteUser;
 use App\Application\UseCase\User\DeleteUser\Dto\DeleteUserInputDto;
