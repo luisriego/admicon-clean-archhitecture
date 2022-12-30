@@ -1,9 +1,7 @@
 security:
     enable_authenticator_manager: true
-    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
-    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         user_provider:
             entity:
@@ -11,6 +9,9 @@ security:
                 property: email
 #        users_in_memory: { memory: null }
     firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
         register:
             pattern: ^/api/users/register
             methods: [ POST ]
@@ -34,31 +35,32 @@ security:
         login:
             pattern: ^/api/login
             stateless: true
-            provider: user_provider
+#            provider: user_provider
             json_login:
                 check_path: /api/login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
-                require_previous_session: false
+#                require_previous_session: false
         api:
             pattern: ^/api
             stateless: true
-            guard:
-                authenticators:
-                    - lexik_jwt_authentication.jwt_token_authenticator
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-#        main:
-#            lazy: true
-#            provider: users_in_memory
+            jwt: ~
+#            guard:
+#                authenticators:
+#                    - lexik_jwt_authentication.jwt_token_authenticator
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
-
+#    access_control:
+#        - { path: ^/api/condos, allow_if: "false == request.headers.has('X-Forwarded-For')" }
+#        - { path: ^/api/rental, allow_if: "false == request.headers.has('X-Forwarded-For')" }
+#        - { path: ^/api/employees/health-check, roles: PUBLIC_ACCESS }
+#        - { path: ^/api/doc, roles: PUBLIC_ACCESS }
+#        - { path: ^/api/login, roles: PUBLIC_ACCESS }
+#        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
 when@test:
     security:
         password_hashers:
