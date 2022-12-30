@@ -13,7 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CreateCondoController extends AbstractController
 {
-    public function __construct(private readonly CreateCondo $createCondoService)
+    public function __construct(
+        private readonly CreateCondo $createCondoService)
     {
     }
 

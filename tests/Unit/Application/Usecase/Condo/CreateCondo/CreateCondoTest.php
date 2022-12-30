@@ -11,6 +11,8 @@ use App\Domain\Model\Condo;
 use App\Domain\Repository\CondoRepositoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 final class CreateCondoTest extends TestCase
 {
@@ -20,12 +22,16 @@ final class CreateCondoTest extends TestCase
     ];
 
     private readonly CondoRepositoryInterface|MockObject $condoRepository;
+    private readonly Security|MockObject $security;
+    private readonly AuthorizationCheckerInterface $checker;
     private readonly CreateCondo $useCase;
 
     public function setUp(): void
     {
         $this->condoRepository = $this->createMock(CondoRepositoryInterface::class);
-        $this->useCase = new CreateCondo($this->condoRepository);
+        $this->security = $this->createMock(Security::class);
+        $this->checker = $this->createMock(AuthorizationCheckerInterface::class);
+        $this->useCase = new CreateCondo($this->condoRepository, $this->security, $this->checker);
     }
 
     public function testCreateCondo(): void
