@@ -29,13 +29,13 @@ class ControllerTestBase extends WebTestCase
             self::$client = static::createClient();
         }
 
-        $client = User::create(Uuid::random()->value(), 'admin', 'admin@api.com', 'Password1!', 18);
-        $password = static::getContainer()->get(PasswordHasherInterface::class)->hashPasswordForUser($client, 'Password1!');
-        $client->setPassword($password);
+        $user = User::create(Uuid::random()->value(), 'admin', 'admin@api.com', 'Password1!', 18);
+        $password = static::getContainer()->get(PasswordHasherInterface::class)->hashPasswordForUser($user, 'Password1!');
+        $user->setPassword($password);
 
-        static::getContainer()->get(UserRepositoryInterface::class)->save($client);
+        static::getContainer()->get(UserRepositoryInterface::class)->save($user);
 
-        $jwt = static::getContainer()->get(JWTTokenManagerInterface::class)->create($client);
+        $jwt = static::getContainer()->get(JWTTokenManagerInterface::class)->create($user);
 
         self::$client->setServerParameters([
             'CONTENT_TYPE' => 'application/json',

@@ -20,9 +20,6 @@ class CreateCondoInputDto
 
     public function __construct(public string $taxpayer, public string $fantasyName)
     {
-        $this->taxpayer = $taxpayer;
-        $this->fantasyName = $fantasyName;
-
         $this->assertNotNull(self::ARGS, [$this->taxpayer, $this->fantasyName]);
 
         $this->assertValueRangeLength($this->taxpayer, Condo::TAXPAYER_MIN_LENGTH, Condo::TAXPAYER_MAX_LENGTH);
