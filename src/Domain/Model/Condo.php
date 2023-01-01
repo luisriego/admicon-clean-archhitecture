@@ -32,7 +32,7 @@ class Condo
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private ?string $fantasyName = '';
 
-    #[ORM\OneToMany(mappedBy: 'condo', targetEntity: User::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'condo', targetEntity: User::class, orphanRemoval: false)]
     private Collection $users;
 
     private function __construct(

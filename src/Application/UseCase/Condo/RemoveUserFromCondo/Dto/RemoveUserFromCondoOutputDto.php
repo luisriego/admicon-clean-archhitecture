@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Application\UseCase\Condo\AddUserToCondo\Dto;
+namespace App\Application\UseCase\Condo\RemoveUserFromCondo\Dto;
 
 use App\Domain\Model\Condo;
 
-class AddUserToCondoOutputDto
+class RemoveUserFromCondoOutputDto
 {
     private function __construct(public readonly array $condoData)
     {
@@ -19,7 +19,7 @@ class AddUserToCondoOutputDto
             'taxpayer' => $condo->getTaxpayer(),
             'fantasyName' => $condo->getFantasyName(),
             'isActive' => $condo->isActive(),
-            'users' => $condo->getUsers()?->toArray(),
+            'users' => $condo->getUsers()->toArray(),
         ]);
     }
 }
