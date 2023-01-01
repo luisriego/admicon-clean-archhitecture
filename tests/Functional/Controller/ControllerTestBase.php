@@ -31,7 +31,7 @@ class ControllerTestBase extends WebTestCase
         $user = User::create(Uuid::random()->value(), 'admin', 'admin@api.com', 'Password1!', 18);
         $password = static::getContainer()->get(PasswordHasherInterface::class)->hashPasswordForUser($user, 'Password1!');
         $user->setPassword($password);
-
+        $user->setRoles(['ROLE_SYNDIC']);
         static::getContainer()->get(UserRepositoryInterface::class)->save($user);
 
         $jwt = static::getContainer()->get(JWTTokenManagerInterface::class)->create($user);

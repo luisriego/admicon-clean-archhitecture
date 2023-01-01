@@ -54,7 +54,7 @@ final class CreateCondoTest extends TestCase
                 })
             );
 
-        $responseDTO = $this->useCase->handle($dto);
+        $responseDTO = $this->useCase->handle($dto, $this->security->getUser());
 
         self::assertInstanceOf(CreateCondoOutputDto::class, $responseDTO);
     }
