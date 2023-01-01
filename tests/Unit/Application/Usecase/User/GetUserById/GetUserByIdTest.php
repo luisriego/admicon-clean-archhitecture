@@ -65,7 +65,7 @@ class GetUserByIdTest extends TestCase
 
     public function testGetUserByIdException(): void
     {
-        $inputDto = GetUserByIdInputDTO::create(self::USER_DATA['id']);
+        $inputDto = GetUserByIdInputDto::create(self::USER_DATA['id']);
 
         $this->userRepository
             ->expects($this->once())
