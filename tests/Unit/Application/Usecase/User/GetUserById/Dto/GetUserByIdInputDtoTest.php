@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\Usecase\User\GetUserById\Dto;
 
+use App\Application\UseCase\User\GetUserById\Dto\GetCondoByIdInputDto;
 use App\Application\UseCase\User\GetUserById\Dto\GetUserByIdInputDto;
 use App\Domain\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
@@ -25,6 +26,6 @@ class GetUserByIdInputDtoTest extends TestCase
         self::expectException(InvalidArgumentException::class);
         self::expectExceptionMessage('Invalid arguments [id]');
 
-        GetUserByIdInputDTO::create(null);
+        GetUserByIdInputDto::create(null);
     }
 }
