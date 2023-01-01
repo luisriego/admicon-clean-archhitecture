@@ -20,6 +20,7 @@ class CreateCondoControllerTest extends CondoControllerTestBase
             'fantasyName' => 'Condomínio Matilda',
             'userId' => $userId,
         ];
+
         
         self::$client->request(Request::METHOD_POST, self::ENDPOINT,[], [], [], \json_encode($payload));
 
