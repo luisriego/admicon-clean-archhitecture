@@ -36,6 +36,7 @@ class GetUsersController extends AbstractController
             $request->order,
             $request->name
         );
+
         $output = $this->useCase->execute($filter);
 
         return $this->json($output->users);

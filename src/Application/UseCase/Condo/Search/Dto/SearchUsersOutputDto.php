@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application\UseCase\Condo\GetCondoUsers\Dto;
+namespace App\Application\UseCase\Condo\Search\Dto;
 
 use App\Adapter\Framework\Http\API\Response\PaginatedResponse;
 use App\Domain\Model\User;
@@ -21,6 +21,7 @@ class SearchUsersOutputDto
                 'id' => $user->getId(),
                 'name' => $user->getName(),
                 'email' => $user->getEmail(),
+                'roles' => $user->getRoles(),
             ];
         }, $paginatedResponse->getItems());
 

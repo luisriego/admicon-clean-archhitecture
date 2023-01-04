@@ -6,7 +6,7 @@ namespace App\Application\UseCase\Condo\Search
 ;
 
 use App\Adapter\Framework\Http\API\Filter\UserFilter;
-use App\Application\UseCase\Condo\GetCondoUsers\Dto\SearchUsersOutputDto;
+use App\Application\UseCase\Condo\Search\Dto\SearchUsersOutputDto;
 use App\Domain\Repository\UserRepositoryInterface;
 
 class Search
