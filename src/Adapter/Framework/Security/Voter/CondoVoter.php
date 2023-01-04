@@ -7,14 +7,19 @@ namespace App\Adapter\Framework\Security\Voter;
 use App\Domain\Model\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Security;
 
-final class UserVoter extends Voter
+final class CondoVoter extends Voter
 {
-    public const GET_USERS_CONDO = 'GET_USERS_CONDO';
+    public const ACTIVATE_CONDO = 'ACTIVATE_CONDO';
+
+    public function __construct(private readonly Security $security)
+    {
+    }
 
     protected function supports(string $attribute, $subject): bool
     {
-        return in_array($attribute, $this->allowedAttributes(), true) && is_array($subject);
+        return in_array($attribute, $this->allowedAttributes(), true) && is_string($subject);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
@@ -22,12 +27,12 @@ final class UserVoter extends Voter
         /** @var User $tokenUser */
         $tokenUser = $token->getUser();
 
-        if (self::GET_USERS_CONDO === $attribute) {
-            foreach ($subject as $user) {
-                if ($tokenUser->getId() === $user->getId()) {
-                    return true;
-                }
-            }
+        if ($this->security->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
+
+        if (\in_array($attribute, $this->allowedAttributes(), true)) {
+            return $tokenUser->getId() === $subject;
         }
 
         return false;
@@ -36,7 +41,7 @@ final class UserVoter extends Voter
     private function allowedAttributes(): array
     {
         return [
-            self::GET_USERS_CONDO,
+            self::ACTIVATE_CONDO,
         ];
     }
 }
