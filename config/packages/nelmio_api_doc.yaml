@@ -207,6 +207,46 @@ nelmio_api_doc:
                                             taxpayer: { type: string, example: 02024517000149 }
                                             fantasyName: { type: string, example: Condomínio do Edifício Fake }
                                             isActive: { type: boolean, example: 1 }
+            /api/condos/{id}/users:
+                get:
+                    tags:
+                        - Condos
+                    parameters:
+                        - in: query
+                          name: page
+                          schema:
+                              type: number
+                          required: false
+                        - in: query
+                          name: limit
+                          schema:
+                              type: number
+                          required: false
+                    responses:
+                        200:
+                            description: Collection of Users belonging to some Condo
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            items:
+                                                type: array
+                                                items:
+                                                    type: object
+                                                    properties:
+                                                        id: { type: string }
+                                                        name: { type: string }
+                                                        email: { type: string }
+                                                        roles: { type: object }
+                                            meta:
+                                                type: object
+                                                properties:
+                                                    total: { type: number, example: 2 }
+                                                    page: { type: number, example: 1 }
+                                                    limit: { type: number, example: 10 }
+                                                    hasNext: { type: boolean, example: true }
+
             /api/condos/{id}:
                 get:
                     tags:
