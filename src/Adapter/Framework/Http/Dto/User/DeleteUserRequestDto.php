@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Adapter\Framework\Http\Dto;
+namespace App\Adapter\Framework\Http\Dto\User;
 
+use App\Adapter\Framework\Http\Dto\RequestDto;
 use Symfony\Component\HttpFoundation\Request;
 
 class DeleteUserRequestDto implements RequestDto

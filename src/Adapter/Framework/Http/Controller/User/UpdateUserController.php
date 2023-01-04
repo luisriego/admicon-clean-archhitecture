@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Adapter\Framework\Http\Controller\User;
 
-use App\Adapter\Framework\Http\Dto\UpdateUserRequestDto;
+use App\Adapter\Framework\Http\Dto\User\UpdateUserRequestDto;
 use App\Application\UseCase\User\UpdateUSer\Dto\UpdateUserInputDto;
 use App\Application\UseCase\User\UpdateUSer\UpdateUser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

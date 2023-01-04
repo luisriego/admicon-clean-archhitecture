@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Adapter\Framework\Http\Controller\User;
 
-use App\Adapter\Framework\Http\Dto\CreateUserRequestDto;
+use App\Adapter\Framework\Http\Dto\User\CreateUserRequestDto;
 use App\Application\UseCase\User\CreateUser\CreateUser;
 use App\Application\UseCase\User\CreateUser\Dto\CreateUserInputDto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

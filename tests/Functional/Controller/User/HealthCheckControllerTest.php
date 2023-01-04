@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Controller\User;
 
 use App\Tests\Functional\Controller\ControllerTestBase;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\BrowserKit\AbstractBrowser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Tests\Functional\Controller\User\UserControllerTestBase;
 
 class HealthCheckControllerTest extends ControllerTestBase
 {
