@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Adapter\Framework\Http\Controller\User;
 
-use App\Adapter\Framework\Http\Dto\DeleteUserRequestDto;
+use App\Adapter\Framework\Http\Dto\User\DeleteUserRequestDto;
 use App\Application\UseCase\User\DeleteUser\DeleteUser;
 use App\Application\UseCase\User\DeleteUser\Dto\DeleteUserInputDto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
