@@ -207,6 +207,29 @@ nelmio_api_doc:
                                             taxpayer: { type: string, example: 02024517000149 }
                                             fantasyName: { type: string, example: Condomínio do Edifício Fake }
                                             isActive: { type: boolean, example: 1 }
+            /api/condos/activate:
+                put:
+                    tags:
+                        - Condos
+                    requestBody:
+                        content:
+                            application/json:
+                                schema:
+                                    type: object
+                                    properties:
+                                        id: { type: string, example: 2d995fa5-7da7-4f49-94ad-b6bed527dca9 }
+                    responses:
+                        200:
+                            description: The Condo will be acticated
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            id: { type: string, example: 2d995fa5-7da7-4f49-94ad-b6bed527dca9 }
+                                            taxpayer: { type: string, example: 02024517000149 }
+                                            fantasyName: { type: string, example: Condomínio do Edifício Fake }
+                                            isActive: { type: boolean, example: 0 or 1 }
             /api/condos/{id}/users:
                 get:
                     tags:
