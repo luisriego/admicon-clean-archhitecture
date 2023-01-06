@@ -18,6 +18,6 @@ class DeleteUser
     {
         $user = $this->userRepository->findOneByIdOrFail($dto->id);
 
-        $this->userRepository->remove($user, false);
+        $this->userRepository->remove($user, true);
     }
 }
