@@ -7,6 +7,7 @@ namespace App\Application\UseCase\Condo\AddUserToCondo;
 use App\Application\UseCase\Condo\AddUserToCondo\Dto\AddUserToCondoInputDto;
 use App\Application\UseCase\Condo\AddUserToCondo\Dto\AddUserToCondoOutputDto;
 use App\Domain\Exception\ResourceNotFoundException;
+use App\Domain\Exception\User\UserAlreadyIsMemberException;
 use App\Domain\Model\Condo;
 use App\Domain\Model\User;
 use App\Domain\Repository\CondoRepositoryInterface;
@@ -28,6 +29,10 @@ class AddUserToCondo
 
         if (null === $user = $this->userRepository->findOneByIdOrFail($dto->userId)) {
             throw ResourceNotFoundException::createFromClassAndId(User::class, $dto->userId);
+        }
+
+        if ($user->getCondo() && $condo->getId() === $user->getCondo()->getId()) {
+            throw UserAlreadyIsMemberException::fromId($user->getId());
         }
 
         $condo->addUser($user);

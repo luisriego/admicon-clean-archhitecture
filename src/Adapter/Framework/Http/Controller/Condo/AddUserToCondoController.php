@@ -23,7 +23,7 @@ class AddUserToCondoController extends AbstractController
     {
         $inputDto = AddUserToCondoInputDto::create($request->id, $request->userId);
 
-        $this->denyAccessUnlessGranted(UserVoter::ADD_NEW_USER);
+        $this->denyAccessUnlessGranted(UserVoter::ADD_NEW_USER, $inputDto->id);
 
         $responseDto = $this->useCase->handle($inputDto);
 
