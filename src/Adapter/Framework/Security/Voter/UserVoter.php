@@ -22,8 +22,7 @@ final class UserVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         return in_array(
-            $attribute, $this->allowedAttributes(), true)
-            && User::class === get_class($subject);
+            $attribute, $this->allowedAttributes(), true);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
@@ -42,6 +41,18 @@ final class UserVoter extends Voter
                     return true;
                 }
             }
+        }
+
+        if (self::ADD_NEW_USER === $attribute) {
+            if ($this->security->isGranted('ROLE_ADMIN')) {
+                return true;
+            }
+
+            if ($this->security->isGranted('ROLE_SYNDIC')) {
+                return $tokenUser->getCondo()->getId() === $subject;
+            }
+
+            return false;
         }
 
         // ROLE_SYNDIC can update another users in his own Condominium and itself
