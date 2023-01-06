@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Adapter\Framework\Http\Controller\Condo;
 
 use App\Adapter\Framework\Http\Dto\Condo\AddUserToCondoRequestDto;
+use App\Adapter\Framework\Security\Voter\UserVoter;
 use App\Application\UseCase\Condo\AddUserToCondo\AddUserToCondo;
 use App\Application\UseCase\Condo\AddUserToCondo\Dto\AddUserToCondoInputDto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +22,8 @@ class AddUserToCondoController extends AbstractController
     public function __invoke(AddUserToCondoRequestDto $request): Response
     {
         $inputDto = AddUserToCondoInputDto::create($request->id, $request->userId);
+
+        $this->denyAccessUnlessGranted(UserVoter::ADD_NEW_USER);
 
         $responseDto = $this->useCase->handle($inputDto);
 

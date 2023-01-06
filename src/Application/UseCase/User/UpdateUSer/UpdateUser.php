@@ -21,7 +21,6 @@ class UpdateUser
     {
         $user = $this->userRepository->findOneByIdOrFail($dto->id);
 
-
         foreach ($dto->paramsToUpdate as $param) {
             $user->{\sprintf('%s%s', self::SETTER_PREFIX, \ucfirst($param))}($dto->{$param});
         }
