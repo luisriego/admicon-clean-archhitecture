@@ -14,6 +14,7 @@ final class UserVoter extends Voter
     public const GET_USERS_CONDO = 'GET_USERS_CONDO';
     public const UPDATE_USER = 'UPDATE_USER';
     public const ADD_NEW_USER = 'ADD_NEW_USER ';
+    public const DELETE_USER = 'DELETE_USER ';
 
     public function __construct(private readonly Security $security)
     {
@@ -77,6 +78,7 @@ final class UserVoter extends Voter
             self::GET_USERS_CONDO,
             self::UPDATE_USER,
             self::ADD_NEW_USER,
+            self::DELETE_USER,
         ];
     }
 }
