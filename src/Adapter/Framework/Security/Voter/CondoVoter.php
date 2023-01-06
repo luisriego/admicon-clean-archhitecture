@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\Security;
 final class CondoVoter extends Voter
 {
     public const ACTIVATE_CONDO = 'ACTIVATE_CONDO';
+    public const UPDATE_CONDO = 'UPDATE_CONDO';
 
     public function __construct(private readonly Security $security)
     {
@@ -24,6 +25,11 @@ final class CondoVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
+        // ROLE_SUPER_ADMIN can do anything! The power!
+        if ($this->security->isGranted('ROLE_SUPER_ADMIN')) {
+            return true;
+        }
+
         /** @var User $tokenUser */
         $tokenUser = $token->getUser();
 
@@ -42,6 +48,7 @@ final class CondoVoter extends Voter
     {
         return [
             self::ACTIVATE_CONDO,
+            self::UPDATE_CONDO,
         ];
     }
 }
