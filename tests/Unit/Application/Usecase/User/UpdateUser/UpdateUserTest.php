@@ -11,6 +11,7 @@ use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class UpdateUserTest extends TestCase
 {

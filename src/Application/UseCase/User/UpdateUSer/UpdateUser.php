@@ -12,13 +12,15 @@ class UpdateUser
 {
     private const SETTER_PREFIX = 'set';
 
-    public function __construct(private readonly UserRepositoryInterface $userRepository)
-    {
+    public function __construct(
+        private readonly UserRepositoryInterface $userRepository
+    ) {
     }
 
     public function handle(UpdateUserInputDto $dto): UpdateUserOutputDto
     {
         $user = $this->userRepository->findOneByIdOrFail($dto->id);
+
 
         foreach ($dto->paramsToUpdate as $param) {
             $user->{\sprintf('%s%s', self::SETTER_PREFIX, \ucfirst($param))}($dto->{$param});
