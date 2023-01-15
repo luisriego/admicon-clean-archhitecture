@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\User;
 
-use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
+use App\Tests\Functional\Controller\ControllerTestBase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ActivateUserControllerTest extends UserControllerTestBase
+class ActivateUserControllerTest extends ControllerTestBase
 {
     private const ENDPOINT = '/api/users/activate';
 

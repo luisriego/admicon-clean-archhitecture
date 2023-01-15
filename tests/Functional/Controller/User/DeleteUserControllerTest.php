@@ -4,16 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\User;
 
-use App\Domain\Model\User;
-use App\Domain\Repository\UserRepositoryInterface;
 use App\Tests\Functional\Controller\ControllerTestBase;
-use App\Tests\Functional\Controller\ExperimentalControllerTestBase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
-class DeleteUserControllerTest extends UserControllerTestBase
+class DeleteUserControllerTest extends ControllerTestBase
 {
     private const ENDPOINT = '/api/users/%s';
 
@@ -25,8 +20,8 @@ class DeleteUserControllerTest extends UserControllerTestBase
 
         $response = self::$admin->getResponse();
 
-        self::assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
-//        self::assertEquals(Response::HTTP_NO_CONTENT, $response->getStatusCode());
+//        self::assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+        self::assertEquals(Response::HTTP_NO_CONTENT, $response->getStatusCode());
     }
 
     public function testDeleteNonExistingUser(): void
@@ -35,7 +30,7 @@ class DeleteUserControllerTest extends UserControllerTestBase
 
         $response = self::$admin->getResponse();
 
+//        self::assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
         self::assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
-//        self::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
     }
 }

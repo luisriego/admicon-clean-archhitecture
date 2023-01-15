@@ -13,6 +13,7 @@ final class CondoVoter extends Voter
 {
     public const ACTIVATE_CONDO = 'ACTIVATE_CONDO';
     public const UPDATE_CONDO = 'UPDATE_CONDO';
+    public const DELETE_CONDO = 'DELETE_CONDO';
 
     public function __construct(private readonly Security $security)
     {
@@ -38,7 +39,11 @@ final class CondoVoter extends Voter
         }
 
         if (\in_array($attribute, $this->allowedAttributes(), true)) {
-            return $tokenUser->getId() === $subject;
+            return $tokenUser->getCondo()->getId() === $subject;
+        }
+
+        if (self::DELETE_CONDO === $attribute) {
+            return $tokenUser->getCondo() === $subject;
         }
 
         return false;
@@ -49,6 +54,7 @@ final class CondoVoter extends Voter
         return [
             self::ACTIVATE_CONDO,
             self::UPDATE_CONDO,
+            self::DELETE_CONDO,
         ];
     }
 }

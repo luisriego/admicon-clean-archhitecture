@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\Condo;
 
+use App\Tests\Functional\Controller\ControllerTestBase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateCondoControllerTest extends CondoControllerTestBase
+class CreateCondoControllerTest extends ControllerTestBase
 {
     private const ENDPOINT = '/api/condos/create';
 
@@ -22,9 +23,9 @@ class CreateCondoControllerTest extends CondoControllerTestBase
         ];
 
         
-        self::$client->request(Request::METHOD_POST, self::ENDPOINT,[], [], [], \json_encode($payload));
+        self::$admin->request(Request::METHOD_POST, self::ENDPOINT,[], [], [], \json_encode($payload));
 
-        $response = self::$client->getResponse();
+        $response = self::$admin->getResponse();
         $responseData = $this->getResponseData($response);
 
         self::assertEquals(Response::HTTP_CREATED, $response->getStatusCode());

@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\User;
 
+use App\Domain\Exception\ResourceNotFoundException;
+use App\Tests\Functional\Controller\ControllerTestBase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UpdateUserControllerTest extends UserControllerTestBase
+class UpdateUserControllerTest extends ControllerTestBase
 {
     private const ENDPOINT = '/api/users/%s';
 
@@ -24,14 +26,26 @@ class UpdateUserControllerTest extends UserControllerTestBase
         $response = self::$admin->getResponse();
         $responseData = $this->getResponseData($response);
 
-        self::assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
-//        self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
-//
-//        $keys = \array_keys($payload);
-//
-//        foreach ($keys as $key) {
-//            self::assertEquals($payload[$key], $responseData[$key]);
-//        }
+        self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
+
+        $keys = \array_keys($payload);
+
+        foreach ($keys as $key) {
+            self::assertEquals($payload[$key], $responseData[$key]);
+        }
+    }
+
+    public function testUpdateUserWithWrongValue(): void
+    {
+        $payload = ['name' => 'A'];
+
+        $userId = $this->createUser();
+
+        self::$admin->request(Request::METHOD_PATCH, \sprintf(self::ENDPOINT, $userId), [], [], [], \json_encode($payload));
+
+        $response = self::$admin->getResponse();
+
+        self::assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
     }
 
     public function updateUserDataProvider(): iterable

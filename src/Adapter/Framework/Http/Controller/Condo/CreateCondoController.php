@@ -22,15 +22,12 @@ class CreateCondoController extends AbstractController
     #[Route('/create', name: 'condo_create', methods: ['POST'])]
     public function __invoke(CreateCondoRequestDto $request): Response
     {
-        // returns your User object, or null if the user is not authenticated
-        /** @var User $authenticatedUser */
-        $authenticatedUser = $this->getUser();
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
 
         $responseDto = $this->createCondo->handle(
             CreateCondoInputDto::create(
                 $request->taxpayer,
-                $request->fantasyName),
-            $authenticatedUser
+                $request->fantasyName)
         );
 
         return $this->json(['condoId' => $responseDto->id], Response::HTTP_CREATED);
