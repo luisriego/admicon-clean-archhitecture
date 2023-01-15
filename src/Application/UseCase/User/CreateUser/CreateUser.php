@@ -35,6 +35,7 @@ class CreateUser
         );
         $password = $this->passwordHasher->hashPasswordForUser($user, $inputDto->password);
         $user->setPassword($password);
+//        $user->setRoles(['ROLE_SYNDIC']);
 
         $this->repository->save($user, true);
 

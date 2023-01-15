@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller;
 
-
+use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Security\PasswordHasherInterface;
 use App\Domain\ValueObjects\Uuid;
@@ -13,33 +13,36 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\AbstractBrowser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Domain\Model\User;
 
 class ControllerTestBase extends WebTestCase
 {
+    protected const CREATE_USER_ENDPOINT = '/api/users/register';
     protected const NON_EXISTING_USER_ID = 'e0a1878f-dd52-4eea-959d-96f589a9f234';
-//    private User $user;
-    protected static ?AbstractBrowser $client = null;
-//    protected static ?AbstractBrowser $authenticatedClient = null;
+    protected const ADMIN_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2NzM3MDY5NTksImV4cCI6MTY3NTAwMjk1OSwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFwaS5jb20iLCJpZCI6ImU2N2Y4NDczLTgyYTUtNGY4ZS04YjFhLTNkYjUxMGNlMDA3MyJ9.H_tnEC6_B4m2W5k1s4EPe2y5f0USL8uwP-v-2kMcxNBsRE7Qbj1CH5X4_HX_gw6wW2EmPTF2DYuYUPwVQo9u0me2zlcvsfZDbjaG_99dnjrfz0yeDzsDkglbFY9x3sXAGWpJk3c58uyHTI1TiYisn2N8kvVteutAkrLz5TUv2__7OTqOhnjCbnpbWF6k8uvzJBT3HOyxkg_dxX1-KgI_CL8nPmZgsYjeulJGoIamgDaLlghurp3FDufJJKEV1Dnm3Sq5qhKCiDcuTGjuI69Zl38zkql4Lg4Q9JGMEbQJWZYS6YDXbt7f-hY6ZXeL0rfz-0NAy6smXwIVOHA410J7TQ';
+
+    protected static ?AbstractBrowser $admin = null;
+    protected string $userId;
 
     public function setUp(): void
     {
-        if (null === self::$client) {
-            self::$client = static::createClient();
-        }
+        self::$admin = static::createClient();
 
-        $user = User::create(Uuid::random()->value(), 'admin', 'admin@api.com', 'Password1!', 18);
-        $password = static::getContainer()->get(PasswordHasherInterface::class)->hashPasswordForUser($user, 'Password1!');
-        $user->setPassword($password);
-        $user->setRoles(['ROLE_SYNDIC']);
-        static::getContainer()->get(UserRepositoryInterface::class)->save($user);
+        $admin = User::create(Uuid::random()->value(), 'admin', 'admin@api.com', 'Password1!', 18);
+        $password = static::getContainer()->get(PasswordHasherInterface::class)->hashPasswordForUser($admin, 'Password1!');
+        $admin->setPassword($password);
+        $admin->setRoles(['ROLE_ADMIN']);
 
-        $jwt = static::getContainer()->get(JWTTokenManagerInterface::class)->create($user);
 
-        self::$client->setServerParameters([
+        static::getContainer()->get(UserRepositoryInterface::class)->save($admin);
+
+        $jwt = static::getContainer()->get(JWTTokenManagerInterface::class)->create($admin);
+
+        self::$admin->setServerParameters([
             'CONTENT_TYPE' => 'application/json',
             'HTTP_Authorization' => \sprintf('Bearer %s', $jwt)
         ]);
+
+//        $this->userId = $this->createUser();
     }
 
     protected function getResponseData(Response $response): array
@@ -60,9 +63,9 @@ class ControllerTestBase extends WebTestCase
             'age' => 30,
         ];
 
-        self::$client->request(Request::METHOD_POST, '/api/users/create', [], [], [], \json_encode($payload));
+        self::$admin->request(Request::METHOD_POST, self::CREATE_USER_ENDPOINT, [], [], [], \json_encode($payload));
 
-        $response = self::$client->getResponse();
+        $response = self::$admin->getResponse();
 
         if (Response::HTTP_CREATED !== $response->getStatusCode()) {
             throw new \RuntimeException('Error creating user');

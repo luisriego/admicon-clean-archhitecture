@@ -9,6 +9,7 @@ use App\Application\UseCase\Condo\CreateCondo\Dto\CreateCondoInputDto;
 use App\Application\UseCase\Condo\CreateCondo\Dto\CreateCondoOutputDto;
 use App\Domain\Model\Condo;
 use App\Domain\Repository\CondoRepositoryInterface;
+use App\Domain\Repository\UserRepositoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -22,6 +23,7 @@ final class CreateCondoTest extends TestCase
     ];
 
     private readonly CondoRepositoryInterface|MockObject $condoRepository;
+    private readonly UserRepositoryInterface|MockObject $userRepository;
     private readonly Security|MockObject $security;
     private readonly AuthorizationCheckerInterface $checker;
     private readonly CreateCondo $useCase;
@@ -29,9 +31,10 @@ final class CreateCondoTest extends TestCase
     public function setUp(): void
     {
         $this->condoRepository = $this->createMock(CondoRepositoryInterface::class);
+        $this->userRepository = $this->createMock(UserRepositoryInterface::class);
         $this->security = $this->createMock(Security::class);
         $this->checker = $this->createMock(AuthorizationCheckerInterface::class);
-        $this->useCase = new CreateCondo($this->condoRepository, $this->security, $this->checker);
+        $this->useCase = new CreateCondo($this->condoRepository, $this->userRepository, $this->checker, $this->security);
     }
 
     public function testCreateCondo(): void
@@ -54,7 +57,7 @@ final class CreateCondoTest extends TestCase
                 })
             );
 
-        $responseDTO = $this->useCase->handle($dto, $this->security->getUser());
+        $responseDTO = $this->useCase->handle($dto);
 
         self::assertInstanceOf(CreateCondoOutputDto::class, $responseDTO);
     }

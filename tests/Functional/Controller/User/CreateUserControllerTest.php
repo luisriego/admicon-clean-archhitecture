@@ -8,7 +8,7 @@ use App\Tests\Functional\Controller\ControllerTestBase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateUserControllerTest extends UserControllerTestBase
+class CreateUserControllerTest extends ControllerTestBase
 {
     private const ENDPOINT = '/api/users/register';
 

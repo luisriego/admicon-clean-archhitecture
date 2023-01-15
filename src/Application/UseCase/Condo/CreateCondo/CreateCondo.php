@@ -10,23 +10,22 @@ use App\Domain\Exception\Condo\CondoAlreadyExistsException;
 use App\Domain\Model\Condo;
 use App\Domain\Model\User;
 use App\Domain\Repository\CondoRepositoryInterface;
+use App\Domain\Repository\UserRepositoryInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Security;
 
 class CreateCondo
 {
     public function __construct(
         private readonly CondoRepositoryInterface $repository,
-        private readonly AuthorizationCheckerInterface $checker
+        private readonly UserRepositoryInterface $userRepo,
+        private readonly AuthorizationCheckerInterface $checker,
+        private readonly Security $security
     ) {
     }
 
-    public function handle(CreateCondoInputDto $inputDto, ?User $authenticatedUser): CreateCondoOutputDto
+    public function handle(CreateCondoInputDto $inputDto): CreateCondoOutputDto
     {
-//        if (!$authenticatedUser) {
-//            throw new AuthenticationException("Need a authorized User to create a Condo");
-//        }
-
         if (null !== $this->repository->findOneByTaxpayer($inputDto->taxpayer)) {
             throw CondoAlreadyExistsException::createFromTaxpayer($inputDto->taxpayer);
         }
@@ -36,8 +35,13 @@ class CreateCondo
             $inputDto->fantasyName,
         );
 
+        /** @var User $authenticatedUser */
+        $authenticatedUser = $this->security->getUser();
+
         if (!$this->checker->isGranted('ROLE_SYNDIC') && $authenticatedUser) {
             $condo->addUser($authenticatedUser);
+            $authenticatedUser->setRoles(['ROLE_SYNDIC']);
+            $this->userRepo->save($authenticatedUser, false);
         }
 
         $this->repository->save($condo, true);
