@@ -8,25 +8,27 @@ use App\Tests\Functional\Controller\ControllerTestBase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UpdateCondoControllerTest extends ControllerTestBase
+class ActivateCondoControllerTest extends ControllerTestBase
 {
     public function testUpdateCondo(): void
     {
-        $payload = [
-            'fantasyName' => 'Condomínio Matilda X',
-        ];
-
         // create a Condo
         $condoId = $this->createCondo();
-        // update a Condo
-        self::$admin->request(Request::METHOD_PATCH, \sprintf(self::ENDPOINT_CONDO, $condoId), [], [], [], \json_encode($payload));
+
+        $payload = [
+            'id' => $condoId,
+        ];
+
+        // activate a Condo
+        self::$admin->request(Request::METHOD_PUT, self::ACTIVATE_CONDO_ENDPOINT, [], [], [], \json_encode($payload));
         // checks
         $response = self::$admin->getResponse();
         $responseData = $this->getResponseData($response);
 
         self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
 
-        self::assertEquals($payload['fantasyName'], $responseData['fantasyName']);
+        self::assertEquals(true, $responseData['isActive']);
+        self::assertEquals($condoId, $responseData['id']);
     }
 
     public function testUpdateCondoWithWrongValue(): void

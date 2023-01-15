@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HealthCheckController extends AbstractController
 {
-    #[Route('/health-check', name: 'condo_health_check', methods: ['GET'])]
+    #[Route('/health-check', name: 'condo_health_check', priority: 2, methods: ['GET'])]
     public function __invoke(): Response
     {
         return $this->json(['message' => 'Module Condo up and running!']);
