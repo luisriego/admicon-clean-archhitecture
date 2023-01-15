@@ -40,7 +40,7 @@ class CreateCondo
 
         if (!$this->checker->isGranted('ROLE_SYNDIC') && $authenticatedUser) {
             $condo->addUser($authenticatedUser);
-            $authenticatedUser->setRoles(["ROLE_SYNDIC"]);
+            $authenticatedUser->setRoles(['ROLE_SYNDIC']);
             $this->userRepo->save($authenticatedUser, false);
         }
 

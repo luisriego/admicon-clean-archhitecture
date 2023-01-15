@@ -7,7 +7,6 @@ namespace App\Adapter\Framework\Http\Controller\Condo;
 use App\Adapter\Framework\Http\Dto\Condo\CreateCondoRequestDto;
 use App\Application\UseCase\Condo\CreateCondo\CreateCondo;
 use App\Application\UseCase\Condo\CreateCondo\Dto\CreateCondoInputDto;
-use App\Domain\Model\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
