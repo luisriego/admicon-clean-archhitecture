@@ -19,7 +19,7 @@ class AddUserToCondoOutputDto
             'taxpayer' => $condo->getTaxpayer(),
             'fantasyName' => $condo->getFantasyName(),
             'isActive' => $condo->isActive(),
-            'users' => $condo->getUsers()?->toArray(),
+            'users' => $condo->getUsers()->getValues(),
         ]);
     }
 }

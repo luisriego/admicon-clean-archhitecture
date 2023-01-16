@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional\Controller\User;
+namespace App\Tests\Functional\Controller;
 
-use App\Tests\Functional\Controller\ControllerTestBase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class HealthCheckControllerTest extends ControllerTestBase
+class UserHealthCheckControllerTest extends ControllerTestBase
 {
     private const ENDPOINT = '/api/users/health-check';
 

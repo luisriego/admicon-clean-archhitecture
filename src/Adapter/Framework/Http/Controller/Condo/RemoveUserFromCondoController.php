@@ -17,7 +17,7 @@ class RemoveUserFromCondoController extends AbstractController
     {
     }
 
-    #[Route('/remove-user-from-condo', name: 'remove_user_from_condo', methods: ['POST'])]
+    #[Route('/remove-user-from-condo', name: 'remove_user_from_condo', methods: ['PUT'])]
     public function __invoke(RemoveUserFromCondoRequestDto $request): Response
     {
         $inputDto = RemoveUserFromCondoInputDto::create($request->id, $request->userId);

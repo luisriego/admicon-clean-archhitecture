@@ -160,7 +160,7 @@ nelmio_api_doc:
                                         properties:
                                             condoId: { type: string, example: 2d995fa5-7da7-4f49-94ad-b6bed527dca9 }
             /api/condos/add-user-to-condo:
-                post:
+                put:
                     tags:
                         - Condos
                     requestBody:

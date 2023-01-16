@@ -18,7 +18,7 @@ class AddUserToCondoController extends AbstractController
     {
     }
 
-    #[Route('/add-user-to-condo', name: 'add_user_to_condo', methods: ['POST'])]
+    #[Route('/add-user-to-condo', name: 'add_user_to_condo', methods: ['PUT'])]
     public function __invoke(AddUserToCondoRequestDto $request): Response
     {
         $inputDto = AddUserToCondoInputDto::create($request->id, $request->userId);

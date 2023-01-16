@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\User;
 
-use App\Domain\Exception\ResourceNotFoundException;
 use App\Tests\Functional\Controller\ControllerTestBase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
